@@ -181,6 +181,13 @@ dependencies {
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.accompanist.permissions)
 
+    // Google Cast Dependencies
+    implementation(libs.androidx.appcompat.v150)
+    implementation(libs.androidx.mediarouter)
+    implementation(libs.androidx.recyclerview)
+    implementation(libs.play.services.cast.framework)
+    implementation(libs.volley)
+    implementation(libs.kotlin.stdlib.jdk8)
     
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
@@ -192,6 +199,8 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
+    implementation("com.google.android.gms:play-services-cast:21.3.0")
+    implementation("com.google.android.gms:play-services-cast-framework:21.3.0")
     androidTestImplementation(libs.androidx.ui.test.junit4)
 
     debugImplementation(libs.androidx.ui.tooling)
