@@ -196,7 +196,7 @@ class VoidApplication : Application() {
 
     override fun onLowMemory() {
         super.onLowMemory()
-       imageLoader.memoryCache?.clear()
-       cacheManager.clearAll()
+        imageLoader.memoryCache?.clear()
+        cacheManager.clearAll()
     }
 }
