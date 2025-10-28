@@ -33,6 +33,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -59,6 +60,8 @@ import com.hritwik.avoid.utils.constants.ApiConstants
 import com.hritwik.avoid.utils.helpers.LocalImageHelper
 import com.hritwik.avoid.utils.helpers.calculateRoundedValue
 import ir.kaaveh.sdpcompose.sdp
+import androidx.mediarouter.app.MediaRouteButton
+import com.google.android.gms.cast.framework.CastButtonFactory
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -247,6 +250,14 @@ fun HomeScreen(
                                             modifier = Modifier.size(calculateRoundedValue(24).sdp)
                                         )
                                     }
+                                    AndroidView(
+                                        factory = { ctx ->
+                                            MediaRouteButton(ctx).apply {
+                                                CastButtonFactory.setUpMediaRouteButton(ctx, this)
+                                            }
+                                        },
+                                        modifier = Modifier.size(calculateRoundedValue(44).sdp)
+                                    )
                                 },
                                 scrollBehavior = scrollBehavior,
                             )
