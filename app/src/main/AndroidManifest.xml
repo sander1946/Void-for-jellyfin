@@ -84,6 +84,10 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
+        <meta-data
+            android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"
+            android:value="com.hritwik.avoid.CastOptionsProvider" />
+
         <receiver
             android:name=".data.download.DownloadActionReceiver"
             android:enabled="true"
