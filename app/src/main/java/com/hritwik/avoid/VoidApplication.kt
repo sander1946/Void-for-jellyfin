@@ -9,6 +9,7 @@ import androidx.annotation.OptIn
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.net.toUri
 import androidx.media3.common.util.UnstableApi
+import com.google.android.gms.cast.framework.CastContext
 import coil.Coil
 import coil.ImageLoader
 import coil.disk.DiskCache
@@ -60,11 +61,18 @@ class VoidApplication : Application() {
         CrashReporter.report(throwable)
     }
 
+    private var mCastContext: CastContext? = null
+
     @OptIn(UnstableApi::class)
     override fun onCreate() {
         super.onCreate()
+        @Suppress("DEPRECATION")
+        CastContext.getSharedInstance(applicationContext)
         copyBundledFonts()
         applyTheme()
+
+        mCastContext = CastContext.getSharedInstance(this)
+
         val coilOkHttpClient = okHttpClient.newBuilder()
             .apply { interceptors().removeAll { it is CdnInterceptor } }
             .build()

@@ -3,7 +3,6 @@ package com.hritwik.avoid
 import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
@@ -16,7 +15,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.cast.framework.CastContext
 import com.hritwik.avoid.data.local.PreferencesManager
 import com.hritwik.avoid.presentation.ui.navigation.JellyfinNavigation
 import com.hritwik.avoid.presentation.ui.screen.onboarding.OnboardingScreen
@@ -32,13 +33,16 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity : FragmentActivity() {
     @Inject
     lateinit var networkMonitor: NetworkMonitor
     @Inject
     lateinit var imageHelper: ImageHelper
     @Inject
     lateinit var preferencesManager: PreferencesManager
+
+    private var mCastContext: CastContext? = null
+
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +50,9 @@ class MainActivity : ComponentActivity() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         configureSystemBars()
         enableEdgeToEdge()
+
+        mCastContext = CastContext.getSharedInstance(this)
+
         setContent {
             val firstRunCompleted by preferencesManager.isFirstRunCompleted().collectAsState(initial = true)
             val themeMode by preferencesManager.getThemeMode().collectAsState(initial = PreferenceConstants.DEFAULT_THEME_MODE)
